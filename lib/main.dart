@@ -1,7 +1,7 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_music/application.dart';
-import 'package:flutter_music/pages/index_page.dart';
+import 'package:flutter_music/pages/splash_page.dart';
 import 'package:flutter_music/route/routes.dart';
 
 
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.light,
           primaryColor: Color.fromARGB(255, 78, 79, 95),
         ),
-        home: IndexPage(),
+        home: SplashPage(),
       ),
     );
   }
