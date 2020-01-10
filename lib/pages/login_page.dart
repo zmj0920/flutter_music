@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -9,8 +8,13 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-       child: Text("登录页面"),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('登陆页'),
+      ),
+      body: Container(
+        child: Text('到这个页面基本上，再次返回推出APP'),
+      ),
     );
   }
 }

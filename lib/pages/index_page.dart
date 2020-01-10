@@ -1,9 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'home_page.dart';
-import 'category_page.dart';
-import 'cart_page.dart';
-import 'member_page.dart';
+import 'package:flutter_music/utils/navigator_util.dart';
 
 class IndexPage extends StatefulWidget {
   @override
@@ -11,51 +7,53 @@ class IndexPage extends StatefulWidget {
 }
 
 class _IndexPageState extends State<IndexPage> {
-  final List<BottomNavigationBarItem> bottomTabs = [
-    BottomNavigationBarItem(icon: Icon(CupertinoIcons.home), title: Text("首页")),
-    BottomNavigationBarItem(
-        icon: Icon(CupertinoIcons.search), title: Text("分类")),
-    BottomNavigationBarItem(
-        icon: Icon(CupertinoIcons.shopping_cart), title: Text("购物车")),
-    BottomNavigationBarItem(
-        icon: Icon(CupertinoIcons.profile_circled), title: Text("会员中心"))
-  ];
-
-  final List<Widget> tabBodies = [
-    HomePage(),
-    CategoryPage(),
-    CartPage(),
-    MemberPage()
-  ];
-
-  int currentIndex = 0;
-  var currentPage;
-   
-   @override
-  void initState() {
-    currentPage=tabBodies[currentIndex];
-    super.initState();
-  }
-
-
-
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
-       backgroundColor: Color.fromRGBO(244, 245, 245, 1.0),
-       bottomNavigationBar: BottomNavigationBar(
-         type: BottomNavigationBarType.fixed,
-         currentIndex: currentIndex,
-         items: bottomTabs,
-         onTap: (index){
-           setState(() {
-             currentIndex=index;
-             currentPage=tabBodies[currentIndex];
-           });
-         },
-       ),
-       body:currentPage,
+      appBar: AppBar(
+        title: Text('fluro'),
+      ),
+      body: Container(
+        child: Center(
+          child: Column(
+            children: <Widget>[
+              SizedBox(height: 10.0),
+              MaterialButton(
+                child: Text(
+                  '正常路由跳转',
+                  style: TextStyle(fontSize: 20.0, color: Colors.white),
+                ),
+                minWidth: 300.0,
+                height: 50.0,
+                color: Colors.blueAccent,
+                onPressed: () => NavigatorUtil.jump(context, '/normalPage'),
+              ),
+              SizedBox(height: 10.0),
+              MaterialButton(
+                child: Text(
+                  '路由穿参：200',
+                  style: TextStyle(fontSize: 20.0, color: Colors.white),
+                ),
+                minWidth: 300.0,
+                height: 50.0,
+                color: Colors.blueAccent,
+                onPressed: () => NavigatorUtil.jump(context, '/routingReference?id=200'),
+              ),
+              SizedBox(height: 10.0),
+              MaterialButton(
+                child: Text(
+                  '跳转登陆页并删除当前路由',
+                  style: TextStyle(fontSize: 20.0, color: Colors.white),
+                ),
+                minWidth: 300.0,
+                height: 50.0,
+                color: Colors.blueAccent,
+                onPressed: () => NavigatorUtil.goToLoginRemovePage(context),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

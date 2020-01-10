@@ -4,25 +4,32 @@ import 'package:flutter_music/application.dart';
 import 'package:flutter_music/pages/index_page.dart';
 import 'package:flutter_music/route/routes.dart';
 
-void main() {
-  Router router = Router();
-  Routes.configureRoutes(router);
-  Application.router = router;
 
-  runApp(MyApp());
-}
+
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Flutter Demo',
+    //-----------------路由主要代码start
+    final router = Router();
+    Routes.configureRoutes(router);
+    Application.router = router;
+    //-----------------路由主要代码end
+
+    return Container(
+      child: MaterialApp(
+        title: 'fluro',
+        //-----------------路由主要代码start
+        onGenerateRoute: Application.router.generator,
+        //-----------------路由主要代码end
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          brightness: Brightness.light,
+          primaryColor: Color.fromARGB(255, 78, 79, 95),
         ),
         home: IndexPage(),
-        onGenerateRoute: Application.router.generator,
-        );
+      ),
+    );
   }
 }
