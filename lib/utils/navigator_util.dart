@@ -19,8 +19,8 @@ class NavigatorUtil {
         transition: TransitionType.material);
   }
 
-  /// 登录页
-  static void goLoginPage(BuildContext context) {
-    _navigateTo(context, Routes.login, clearStack: true);
+  /// 首页
+  static void goHomePage(BuildContext context) {
+    _navigateTo(context, Routes.home, clearStack: true);
   }
 }
