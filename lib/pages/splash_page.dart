@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_music/application.dart';
-import 'package:flutter_music/pages/index_page.dart';
+import 'package:flutter_music/pages/login_page.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SplashPage extends StatefulWidget {
@@ -36,7 +36,7 @@ class _SplashPageState extends State<SplashPage>
       if (status == AnimationStatus.completed) {
         Future.delayed(Duration(milliseconds: 500), () {
           Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => IndexPage()),
+              MaterialPageRoute(builder: (context) => LoginPage()),
               (route) => route == null);
         });
       }

@@ -1,19 +1,34 @@
-# flutter_music
+## 构建model生成json序列化代码
+### flutter packages pub run build_runner build
+### flutter packages pub run build_runner watch
+### flutter packages pub run build_runner watch --delete-conflicting-outputs
 
-A new Flutter project.
+## 清理build
+### flutter clean
 
-## Getting Started
+## 真机运行
+### flutter run --profile
 
-This project is a starting point for a Flutter application.
+## Android打包
+### flutter build apk --release
 
-A few resources to get you started if this is your first Flutter project:
+## iOS打包
+### flutter build ios --release
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## pod更新
+### pod update --verbose --no-repo-update
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## iOS发布
+### flutter build ios --release
+### Product -> Archive
+
+https://github.com/phoenixsky/fun_android_flutter
+
+https://github.com/zhaochengxiang/flutter_lychee
+
+
+
+
 
 stful 快速生成组件
 
