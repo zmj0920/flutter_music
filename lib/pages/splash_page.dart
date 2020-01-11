@@ -58,9 +58,13 @@ class _SplashPageState extends State<SplashPage>
     Application.statusBarHeight = MediaQuery.of(context).padding.top;
     Application.bottomBarHeight = MediaQuery.of(context).padding.bottom;
     return Scaffold(
-      backgroundColor: Color.fromRGBO(251, 2, 8, 0.8),
       body: Container(
         height: double.infinity,
+        decoration:BoxDecoration( image: DecorationImage(
+            image: AssetImage("images/welcome.png"),
+            fit: BoxFit.cover,
+          )
+          ),
         width: double.infinity,
         child: ScaleTransition(
           scale: _logoAnimation,
