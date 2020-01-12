@@ -4,7 +4,7 @@ import 'package:flutter_music/application.dart';
 import 'package:flutter_music/model/user.dart';
 import 'package:flutter_music/utils/net_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:flutter_music/utils/utils.dart';
 class UserModel with ChangeNotifier {
   User _user;
 
@@ -20,12 +20,14 @@ class UserModel with ChangeNotifier {
 
   /// 登录
   Future<User> login(BuildContext context, String phone, String pwd) async {
-    print("123456");
+
     User user = await NetUtils.login(context, phone, pwd);
     if (user.code > 299) {
+      Utils.showToast(user.msg ?? '登录失败，请检查账号密码');
       return null;
     }
-    await _saveUserInfo(user);
+    Utils.showToast(user.msg ?? '登录成功');
+    _saveUserInfo(user);
     return user;
   }
 

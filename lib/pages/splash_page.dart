@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_music/application.dart';
 import 'package:flutter_music/pages/login_page.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:flutter_music/utils/net_utils.dart';
 class SplashPage extends StatefulWidget {
   @override
   _SplashPageState createState() => _SplashPageState();
@@ -52,6 +52,10 @@ class _SplashPageState extends State<SplashPage>
 
   @override
   Widget build(BuildContext context) {
+    // dio 初始化
+    NetUtils.init();
+
+
     ScreenUtil.init(context, width: 750, height: 1334, allowFontScaling: true);
     final size = MediaQuery.of(context).size;
     Application.screenWidth = size.width;

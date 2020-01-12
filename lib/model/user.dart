@@ -5,12 +5,13 @@ class User {
 	String token;
 	Profile profile;
 	List<Bindings> bindings;
-
-	User({this.loginType, this.code, this.account, this.token, this.profile, this.bindings});
+  String msg;
+	User({this.loginType, this.code, this.account, this.token, this.profile, this.bindings,this.msg});
 
 	User.fromJson(Map<String, dynamic> json) {
 		loginType = json['loginType'];
 		code = json['code'];
+    msg=json['msg'];
 		account = json['account'] != null ? new Account.fromJson(json['account']) : null;
 		token = json['token'];
 		profile = json['profile'] != null ? new Profile.fromJson(json['profile']) : null;

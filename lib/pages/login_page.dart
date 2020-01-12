@@ -141,8 +141,7 @@ class __LoginWidgetState extends State<_LoginWidget> {
                     context,
                     phone,
                     pwd,
-                  )
-                      .then((value) {
+                  ).then((value) {
                     if (value != null) {
                       NavigatorUtil.jump(context, '/indexPage');
                     }

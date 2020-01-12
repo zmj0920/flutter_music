@@ -1,5 +1,4 @@
 //网络请求管理
-import 'dart:convert';
 import 'dart:io';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
@@ -11,26 +10,20 @@ import 'package:flutter_music/route/navigate_service.dart';
 import 'package:flutter_music/route/routes.dart';
 import 'package:flutter_music/widgets/loading.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:flutter_music/utils/utils.dart';
 
 class NetUtils {
   static Dio _dio;
-  //static final String baseUrl = 'http://music.521em.cn';
+  static final String baseUrl = 'http://music.521em.cn';
 
   static void init() async {
     // 获取沙盒路径，用于存储 cookie
     Directory tempDir = await getTemporaryDirectory();
     String tempPath = tempDir.path;
-    CookieJar cj = PersistCookieJar(dir: tempPath);
-    _dio = Dio(BaseOptions(baseUrl: '', followRedirects: false))
+    CookieJar cj = new PersistCookieJar(dir: tempPath);
+    _dio = Dio(BaseOptions(baseUrl: baseUrl, followRedirects: false))
       ..interceptors.add(CookieManager(cj))
       ..interceptors.add(LogInterceptor(responseBody: true, requestBody: true));
-  }
-
-  static void _reLogin() {
-    Future.delayed(Duration(milliseconds: 200), () {
-      Application.getIt<NavigateService>().popAndPushNamed(Routes.login);
-      // Utils.showToast('登录失效，请重新登录');
-    });
   }
 
   static Future<Response> _get(
@@ -41,7 +34,6 @@ class NetUtils {
   }) async {
     if (isShowLoading) Loading.showLoading(context);
     try {
-      print(params);
       return await _dio.get(url, queryParameters: params);
     } on DioError catch (e) {
       if (e == null) {
@@ -61,12 +53,27 @@ class NetUtils {
     }
   }
 
+  static void _reLogin() {
+    Future.delayed(Duration(milliseconds: 200), () {
+      Application.getIt<NavigateService>().popAndPushNamed(Routes.login);
+      Utils.showToast('登录失效，请重新登录');
+    });
+  }
+
   /// 登录
   static Future<User> login(
       BuildContext context, String phone, String password) async {
-    Response response;
-    response = await Dio()
-        .get("http://music.521em.cn/login/cellphone?phone=$phone&password=$password");
-      return User.fromJson(response.data);
+    var response = await _get(context, '/login/cellphone', params: {
+      'phone': phone,
+      'password': password,
+    });
+    return User.fromJson(response.data);
+  }
+
+  static Future<Response> refreshLogin(BuildContext context) async {
+    return await _get(context, '/login/refresh', isShowLoading: false)
+        .catchError((e) {
+      Utils.showToast('网络错误！');
+    });
   }
 }
