@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_music/provider/user_model.dart';
+import 'package:flutter_music/utils/navigator_util.dart';
 import 'package:flutter_music/widgets/common_button.dart';
 import 'package:flutter_music/widgets/v_empty_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -22,7 +25,6 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
       _controller.forward();
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -123,19 +125,34 @@ class __LoginWidgetState extends State<_LoginWidget> {
                 )),
           ),
           VEmptyView(120),
-          CommonButton(
+          Consumer<UserModel>(
+            builder: (BuildContext context, UserModel value, Widget child) {
+              return CommonButton(
                 callback: () {
                   String phone = _phoneController.text;
                   String pwd = _pwdController.text;
                   if (phone.isEmpty || pwd.isEmpty) {
-                   
-                  print("请输入账号或者密码");
+                    // Utils.showToast('请输入账号或者密码');
                     return;
                   }
+                 
+                  value
+                      .login(
+                    context,
+                    phone,
+                    pwd,
+                  )
+                      .then((value) {
+                    if (value != null) {
+                      NavigatorUtil.jump(context, '/indexPage');
+                    }
+                  });
                 },
                 content: 'Login',
                 width: double.infinity,
-              )
+              );
+            },
+          )
         ],
       ),
     );
@@ -143,6 +160,7 @@ class __LoginWidgetState extends State<_LoginWidget> {
 }
 
 class _LoginAnimatedWidget extends AnimatedWidget {
+  //tween动画
   final Tween<double> _opacityTween = Tween(begin: 0, end: 1);
   final Tween<double> _offsetTween = Tween(begin: 40, end: 0);
   final Animation animation;
@@ -153,6 +171,7 @@ class _LoginAnimatedWidget extends AnimatedWidget {
 
   @override
   Widget build(BuildContext context) {
+    // 设置子控件透明度
     return Opacity(
       opacity: _opacityTween.evaluate(animation),
       child: Container(

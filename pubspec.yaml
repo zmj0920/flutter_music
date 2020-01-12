@@ -43,6 +43,9 @@ dependencies:
   # Image 扩展
   extended_image: ^0.6.8
 
+  get_it: ^3.1.0
+
+  # fluttertoast: ^3.1.3
 
 
 dev_dependencies:
