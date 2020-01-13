@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_music/application.dart';
 import 'package:flutter_music/pages/login_page.dart';
+import 'package:flutter_music/provider/user_model.dart';
+import 'package:flutter_music/utils/navigator_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_music/utils/net_utils.dart';
+import 'package:provider/provider.dart';
+
 class SplashPage extends StatefulWidget {
   @override
   _SplashPageState createState() => _SplashPageState();
@@ -35,27 +39,37 @@ class _SplashPageState extends State<SplashPage>
     _logoAnimation.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         Future.delayed(Duration(milliseconds: 500), () {
-          Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => LoginPage()),
-              (route) => route == null);
+          // Navigator.of(context).pushAndRemoveUntil(
+          //     MaterialPageRoute(builder: (context) => LoginPage()),
+          //     (route) => route == null);
+          goPage();
         });
       }
     });
   }
-  
 
-  @override
-  void dispose() {
-    super.dispose();
-    _logoController.dispose();
+  void goPage() async {
+    await Application.initSp();
+    //  UserModel userModel = Provider.of<UserModel>(context);
+    //listen为 false在 build 方法中使用上面的代码，当被调用的时候不会使 widget 被重构
+    UserModel userModel = Provider.of<UserModel>(context, listen: false);
+    userModel.initUser();
+  //  print(userModel.user);
+      if (userModel.user != null) {
+        await NetUtils.refreshLogin(context).then((value){
+          if(value.data != -1){
+            NavigatorUtil.goHomePage(context);
+          }
+        });
+      } else
+        NavigatorUtil.goLoginPage(context);
   }
 
   @override
   Widget build(BuildContext context) {
     // dio 初始化
     NetUtils.init();
-
-
+    // 屏幕适配
     ScreenUtil.init(context, width: 750, height: 1334, allowFontScaling: true);
     final size = MediaQuery.of(context).size;
     Application.screenWidth = size.width;
@@ -63,13 +77,9 @@ class _SplashPageState extends State<SplashPage>
     Application.statusBarHeight = MediaQuery.of(context).padding.top;
     Application.bottomBarHeight = MediaQuery.of(context).padding.bottom;
     return Scaffold(
+      backgroundColor: Colors.red,
       body: Container(
         height: double.infinity,
-        decoration:BoxDecoration( image: DecorationImage(
-            image: AssetImage("images/welcome.png"),
-            fit: BoxFit.cover,
-          )
-          ),
         width: double.infinity,
         child: ScaleTransition(
           scale: _logoAnimation,
@@ -80,5 +90,11 @@ class _SplashPageState extends State<SplashPage>
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _logoController.dispose();
   }
 }

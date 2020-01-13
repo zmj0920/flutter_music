@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter_music/pages/index_page.dart';
 import 'package:flutter_music/pages/login_page.dart';
+import 'package:flutter_music/pages/splash_page.dart';
 import 'package:flutter_music/pages/normal_page.dart';
 import 'package:flutter_music/pages/routing_reference.dart';
 
@@ -9,6 +10,34 @@ import 'package:flutter_music/pages/routing_reference.dart';
  * handler就是每个路由的规则，编写handler就是配置路由规则，
  * 比如我们要传递参数，参数的值是什么，这些都需要在Handler中完成。
  */
+
+
+
+
+
+
+// 启动页面
+var splashHandler = new Handler(
+    handlerFunc: (BuildContext context, Map<String, List<Object>> params) {
+      return SplashPage();
+});
+
+
+// 登陆页面
+Handler loginHanderl = Handler(
+  handlerFunc: (BuildContext context, Map<String, List<Object>> params) {
+    return LoginPage();
+  }
+);
+
+
+// 跳转到主页
+var homeHandler = new Handler(
+    handlerFunc: (BuildContext context, Map<String, List<Object>> params) {
+      return IndexPage();
+});
+
+
 
 // 首页
 Handler indexPageHanderl = Handler(
@@ -32,9 +61,3 @@ Handler routingReferenceHanderl = Handler(
   }
 );
 
-// 登陆页面
-Handler loginHanderl = Handler(
-  handlerFunc: (BuildContext context, Map<String, List<Object>> params) {
-    return LoginPage();
-  }
-);
