@@ -137,7 +137,7 @@ class SearchBarViewDelegate extends SearchDelegate<String> {
       IconButton(
         icon: Icon(Icons.search),
         onPressed: () {
-          print(query);
+         // print(query);
           //query = "";
         },
       )
@@ -170,9 +170,17 @@ class SearchBarViewDelegate extends SearchDelegate<String> {
     ///展示搜索结果
     return ListView.builder(
       itemCount: result.length,
-      itemBuilder: (BuildContext context, int index) => ListTile(
+      itemBuilder: (BuildContext context, int index) =>InkWell(
+        child: ListTile(
         title: Text(result[index]),
-      ),
+      ) ,
+       onTap: () {
+          searchHint = "";
+          query = result[index].toString();
+          print(query);
+          showResults(context);
+        },
+      )
     );
   }
 
@@ -201,6 +209,7 @@ class SearchBarViewDelegate extends SearchDelegate<String> {
         onTap: () {
           searchHint = "";
           query = suggest[index].toString();
+          print(query);
           showResults(context);
         },
       ),
