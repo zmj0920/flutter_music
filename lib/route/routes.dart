@@ -28,10 +28,6 @@ class Routes {
     router.define(home, handler: homeHandler); //首页
 
 
-
-
-
-    router.define(indexPage, handler: indexPageHanderl);
     router.define(normalPage, handler: normalPageHanderl);
     router.define(routingReference, handler: routingReferenceHanderl);
   }
