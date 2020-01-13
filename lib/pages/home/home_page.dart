@@ -3,6 +3,7 @@ import 'package:flutter_music/application.dart';
 import 'package:flutter_music/pages/home/discover/discover_page.dart';
 import 'package:flutter_music/pages/home/event/event_page.dart';
 import 'package:flutter_music/pages/home/me/me_page.dart';
+import 'package:flutter_music/pages/home/video/video_page.dart';
 import 'package:flutter_music/widgets/v_empty_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -17,7 +18,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(vsync: this, length: 3);
+    _tabController = TabController(vsync: this, length: 4);
   }
 
   @override
@@ -37,6 +38,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         child: Stack(
           children: <Widget>[
             Padding(
+               padding: EdgeInsets.only(right: 25,bottom:ScreenUtil().setWidth(80) + Application.bottomBarHeight),
               child: Column(
                 children: <Widget>[
                   Stack(
@@ -44,29 +46,33 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       Padding(
                         //EdgeInsets.symmetric(horizontal: val1, vertical: val2): 用于设置水平/垂直方向上的值
                         padding: EdgeInsets.symmetric(
-                            horizontal: ScreenUtil().setWidth(150)),
+                            horizontal: ScreenUtil().setWidth(80)),
                         child: TabBar(
                           labelStyle: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
+                              fontSize: 16, fontWeight: FontWeight.bold),
                           unselectedLabelStyle: TextStyle(fontSize: 14),
                           //未选中时标签的颜色
                           indicator: UnderlineTabIndicator(),
+                           indicatorWeight: 1,
                           controller: _tabController,
                           tabs: [
-                            Tab(
-                              text: '发现',
-                            ),
                             Tab(
                               text: '我的',
                             ),
                             Tab(
+                              text: '发现',
+                            ),
+                            Tab(
                               text: '动态',
+                            ),
+                            Tab(
+                              text: '视频',
                             ),
                           ],
                         ),
                       ),
                       Positioned(
-                        right: ScreenUtil().setWidth(20),
+                        right: ScreenUtil().setWidth(0),
                         child: IconButton(
                           icon: Icon(
                             Icons.search,
@@ -87,17 +93,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     child: TabBarView(
                       controller: _tabController,
                       children: [
-                        DiscoverPage(),
                         MePage(),
+                        DiscoverPage(),
                         EventPage(),
+                        VideoPage()
                       ],
                     ),
                   ),
                 ],
               ),
-              padding: EdgeInsets.only(
-                  bottom:
-                      ScreenUtil().setWidth(80) + Application.bottomBarHeight),
             ),
             // PlayWidget(),
           ],
