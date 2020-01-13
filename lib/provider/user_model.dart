@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_music/application.dart';
 import 'package:flutter_music/model/user.dart';
 import 'package:flutter_music/utils/net_utils.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_music/utils/utils.dart';
 class UserModel with ChangeNotifier {
   User _user;

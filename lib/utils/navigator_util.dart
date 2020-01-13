@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter_music/application.dart';
-import 'package:flutter_music/pages/index_page.dart';
 import 'package:flutter_music/pages/login_page.dart';
 import 'package:flutter_music/route/routes.dart';
 
@@ -80,13 +79,13 @@ class NavigatorUtil {
     /// 指定了 转场动画
   }
 
-  static Future jumpRemove(BuildContext context) {
-    return Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(
-          builder: (context) => IndexPage(),
-        ),
-        (route) => route == null);
-  }
+  // static Future jumpRemove(BuildContext context) {
+  //   return Navigator.of(context).pushAndRemoveUntil(
+  //       MaterialPageRoute(
+  //         builder: (context) => IndexPage(),
+  //       ),
+  //       (route) => route == null);
+  // }
 
   /// 自定义 转场动画
   static Future gotransitionCustomDemoPage(BuildContext context, String title) {
@@ -118,13 +117,13 @@ class NavigatorUtil {
   }
 
   // 跳转到主页面IndexPage并删除当前路由
-  static void goToHomeRemovePage(BuildContext context) {
-    Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(
-          builder: (context) => IndexPage(),
-        ),
-        (route) => route == null);
-  }
+  // static void goToHomeRemovePage(BuildContext context) {
+  //   Navigator.of(context).pushAndRemoveUntil(
+  //       MaterialPageRoute(
+  //         builder: (context) => IndexPage(),
+  //       ),
+  //       (route) => route == null);
+  // }
 
   // 跳转到登录页并删除当前路由
   static void goToLoginRemovePage(BuildContext context) {

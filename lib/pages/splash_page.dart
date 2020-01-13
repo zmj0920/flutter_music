@@ -43,7 +43,7 @@ class _SplashPageState extends State<SplashPage>
 
   void goPage() async {
     await Application.initSp();
-    //listen为 false在 build 方法中使用上面的代码，当被调用的时候不会使 widget 被重构
+    //listen为 false在 build 方法中使用当被调用的时候不会使 widget 被重构
     UserModel userModel = Provider.of<UserModel>(context, listen: false);
     userModel.initUser();
       if (userModel.user != null) {
