@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_music/application.dart';
-import 'package:flutter_music/pages/login_page.dart';
 import 'package:flutter_music/provider/user_model.dart';
 import 'package:flutter_music/utils/navigator_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

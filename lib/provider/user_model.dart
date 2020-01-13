@@ -33,9 +33,9 @@ class UserModel with ChangeNotifier {
 
   /// 保存用户信息到 sp
   _saveUserInfo(User user) async {
-    SharedPreferences sp = await SharedPreferences.getInstance();
-    sp.setString('user', json.encode(user.toJson()));
-    User us = User.fromJson(json.decode(sp.getString('user')));
+     _user = user;
+    Application.sp.setString('user', json.encode(user.toJson()));
+    User us = User.fromJson(json.decode(Application.sp.getString('user')));
     us.bindings.forEach((item) {
       print(item.id);
     });
