@@ -20,58 +20,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     _tabController = TabController(vsync: this, length: 3);
   }
 
-  get _drawer => Drawer(
-        child: ListView(
-          children: <Widget>[
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.lightBlueAccent,
-              ),
-              child: Center(
-                child: SizedBox(
-                  width: 60.0,
-                  height: 60.0,
-                  child: CircleAvatar(
-                    child: Text('R'),
-                  ),
-                ),
-              ),
-            ),
-            ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('设置'),
-            )
-          ],
-        ),
-
-        ///edit end
-      );
-
-  void _handlerDrawerButton() {
-    Scaffold.of(context).openDrawer();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       // 设置没有高度的 appbar，目的是为了设置状态栏的颜色
       appBar: PreferredSize(
         child: AppBar(
-        actions: <Widget>[
-          IconButton(
-                          icon: Icon(
-                            Icons.menu,
-                            size: ScreenUtil().setWidth(50),
-                            color: Colors.black87,
-                          ),
-                          onPressed: _handlerDrawerButton,
-                        ),
-        ]
+          elevation: 0,
         ),
         preferredSize: Size.zero,
       ),
       backgroundColor: Colors.yellow,
-      drawer: _drawer,
       //SafeArea解决不规则屏幕的显示问题
       body: SafeArea(
         bottom: false,
@@ -82,17 +41,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 children: <Widget>[
                   Stack(
                     children: <Widget>[
-                      Positioned(
-                        left: ScreenUtil().setWidth(10),
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.menu,
-                            size: ScreenUtil().setWidth(50),
-                            color: Colors.black87,
-                          ),
-                          onPressed: _handlerDrawerButton,
-                        ),
-                      ),
                       Padding(
                         //EdgeInsets.symmetric(horizontal: val1, vertical: val2): 用于设置水平/垂直方向上的值
                         padding: EdgeInsets.symmetric(
@@ -126,7 +74,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             color: Colors.black87,
                           ),
                           onPressed: () {
-                            //  NavigatorUtil.goSearchPage(context);
+                            showSearch(
+                                context: context,
+                                delegate: SearchBarViewDelegate());
                           },
                         ),
                       ),
@@ -152,6 +102,107 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             // PlayWidget(),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class SearchBarViewDelegate extends SearchDelegate<String> {
+  String searchHint = "请输入搜索内容...";
+  var sourceList = [
+    "dart",
+    "dart 入门",
+    "flutter",
+    "flutter 编程",
+    "flutter 编程开发",
+  ];
+
+  var suggestList = ["flutter", "flutter 编程开发"];
+
+  @override
+  String get searchFieldLabel => searchHint;
+
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    ///显示在最右边的控件列表
+    return [
+      IconButton(
+        icon: Icon(Icons.clear),
+        onPressed: () {
+          query = "";
+          ///搜索建议的内容
+          showSuggestions(context);
+        },
+      ),
+      IconButton(
+        icon: Icon(Icons.search),
+        onPressed: () {
+          print(query);
+          //query = "";
+        },
+      )
+    ];
+  }
+
+  ///左侧带动画的控件，一般都是返回
+  @override
+  Widget buildLeading(BuildContext context) {
+    return IconButton(
+      icon: AnimatedIcon(icon: AnimatedIcons.menu_arrow, progress: transitionAnimation),
+      ///调用 close 关闭 search 界面
+      onPressed: () => close(context, null),
+    );
+  }
+
+  ///展示搜索结果
+  @override
+  Widget buildResults(BuildContext context) {
+    List<String> result = List();
+
+    ///模拟搜索过程
+    for (var str in sourceList) {
+      ///query 就是输入框的 TextEditingController
+      if (query.isNotEmpty && str.contains(query)) {
+        result.add(str);
+      }
+    }
+
+    ///展示搜索结果
+    return ListView.builder(
+      itemCount: result.length,
+      itemBuilder: (BuildContext context, int index) => ListTile(
+        title: Text(result[index]),
+      ),
+    );
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    List<String> suggest = query.isEmpty
+        ? suggestList
+        : sourceList.where((input) => input.startsWith(query)).toList();
+    return ListView.builder(
+      itemCount: suggest.length,
+      itemBuilder: (BuildContext context, int index) => InkWell(
+        child: ListTile(
+          title: RichText(
+            text: TextSpan(
+              text: suggest[index].substring(0, query.length),
+              style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+              children: [
+                TextSpan(
+                  text: suggest[index].substring(query.length),
+                  style: TextStyle(color: Colors.grey),
+                ),
+              ],
+            ),
+          ),
+        ),
+        onTap: () {
+          searchHint = "";
+          query = suggest[index].toString();
+          showResults(context);
+        },
       ),
     );
   }
