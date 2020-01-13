@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_music/application.dart';
 import 'package:flutter_music/pages/home/discover/discover_page.dart';
+import 'package:flutter_music/pages/home/event/event_page.dart';
+import 'package:flutter_music/pages/home/me/me_page.dart';
 import 'package:flutter_music/widgets/v_empty_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 class HomePage extends StatefulWidget {
@@ -37,6 +39,19 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 children: <Widget>[
                   Stack(
                     children: <Widget>[
+                       Positioned(
+                        left: ScreenUtil().setWidth(10),
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.menu,
+                            size: ScreenUtil().setWidth(50),
+                            color: Colors.black87,
+                          ),
+                          onPressed: () {
+                            //  NavigatorUtil.goSearchPage(context);
+                          },
+                        ),
+                      ),
                       Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: ScreenUtil().setWidth(150)),
@@ -80,19 +95,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       controller: _tabController,
                       children: [
                         DiscoverPage(),
-                        DiscoverPage(),
-                        DiscoverPage(),
-                        // DiscoverPage(),
-                        // MyPage(),
-                        // EventPage(),
+                        MePage(),
+                        EventPage(),
                       ],
                     ),
                   ),
                 ],
               ),
-              padding: EdgeInsets.only(
-                  bottom:
-                      ScreenUtil().setWidth(80) + Application.bottomBarHeight),
+              padding: EdgeInsets.only(bottom: ScreenUtil().setWidth(80) + Application.bottomBarHeight),
             ),
             // PlayWidget(),
           ],
