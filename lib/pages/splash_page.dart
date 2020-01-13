@@ -32,16 +32,10 @@ class _SplashPageState extends State<SplashPage>
     _logoAnimation =
         CurvedAnimation(parent: _logoController, curve: Curves.easeOutQuart);
 
-    /*动画事件监听器，
-    它可以监听到动画的执行状态，
-    我们这里只监听动画是否结束，
-    如果结束则执行页面跳转动作。 */
+    //动画事件监听器，它可以监听到动画的执行状态，只监听动画是否结束，如果结束则执行页面跳转动作
     _logoAnimation.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         Future.delayed(Duration(milliseconds: 500), () {
-          // Navigator.of(context).pushAndRemoveUntil(
-          //     MaterialPageRoute(builder: (context) => LoginPage()),
-          //     (route) => route == null);
           goPage();
         });
       }
@@ -50,11 +44,9 @@ class _SplashPageState extends State<SplashPage>
 
   void goPage() async {
     await Application.initSp();
-    //  UserModel userModel = Provider.of<UserModel>(context);
     //listen为 false在 build 方法中使用上面的代码，当被调用的时候不会使 widget 被重构
     UserModel userModel = Provider.of<UserModel>(context, listen: false);
     userModel.initUser();
-  //  print(userModel.user);
       if (userModel.user != null) {
         await NetUtils.refreshLogin(context).then((value){
           if(value.data != -1){
@@ -62,7 +54,9 @@ class _SplashPageState extends State<SplashPage>
           }
         });
       } else
-        NavigatorUtil.goLoginPage(context);
+       {
+          NavigatorUtil.goLoginPage(context);
+       }
   }
 
   @override
