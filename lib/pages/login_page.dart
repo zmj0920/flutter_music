@@ -134,8 +134,7 @@ class __LoginWidgetState extends State<_LoginWidget> {
                   if (phone.isEmpty || pwd.isEmpty) {
                     // Utils.showToast('请输入账号或者密码');
                     return;
-                  }
-                 
+                  }           
                   value
                       .login(
                     context,
@@ -143,7 +142,7 @@ class __LoginWidgetState extends State<_LoginWidget> {
                     pwd,
                   ).then((value) {
                     if (value != null) {
-                      NavigatorUtil.jump(context, '/indexPage');
+                      NavigatorUtil.goHomePage(context);
                     }
                   });
                 },

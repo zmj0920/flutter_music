@@ -3,13 +3,11 @@ import 'package:flutter_music/application.dart';
 import 'package:flutter_music/pages/home/discover/discover_page.dart';
 import 'package:flutter_music/widgets/v_empty_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-class IndexPage extends StatefulWidget {
+class HomePage extends StatefulWidget {
   @override
-  _IndexPageState createState() => _IndexPageState();
+  _HomePageState createState() => _HomePageState();
 }
-
-class _IndexPageState extends State<IndexPage> with TickerProviderStateMixin {
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   TabController _tabController;
 
   @override

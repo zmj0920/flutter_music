@@ -61,7 +61,7 @@ class NavigatorUtil {
 
   // 跳转到主页面
   static void goIndexPage(BuildContext context) {
-    Application.router.navigateTo(context, Routes.indexPage, replace: true);
+    Application.router.navigateTo(context, Routes.home, replace: true);
   }
 
   /// 跳转到 转场动画 页面 ， 这边只展示 inFromLeft ，剩下的自己去尝试下，

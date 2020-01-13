@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
-import 'package:flutter_music/pages/index_page.dart';
+import 'package:flutter_music/pages/home/home_page.dart';
 import 'package:flutter_music/pages/login_page.dart';
 import 'package:flutter_music/pages/splash_page.dart';
 import 'package:flutter_music/pages/normal_page.dart';
@@ -11,13 +11,8 @@ import 'package:flutter_music/pages/routing_reference.dart';
  * 比如我们要传递参数，参数的值是什么，这些都需要在Handler中完成。
  */
 
-
-
-
-
-
 // 启动页面
-var splashHandler = new Handler(
+Handler splashHandler = new Handler(
     handlerFunc: (BuildContext context, Map<String, List<Object>> params) {
       return SplashPage();
 });
@@ -32,19 +27,12 @@ Handler loginHanderl = Handler(
 
 
 // 跳转到主页
-var homeHandler = new Handler(
+Handler homeHandler = new Handler(
     handlerFunc: (BuildContext context, Map<String, List<Object>> params) {
-      return IndexPage();
+      return HomePage();
 });
 
 
-
-// 首页
-Handler indexPageHanderl = Handler(
-  handlerFunc: (BuildContext context, Map<String, List<Object>> params) {
-    return IndexPage();
-  },
-);
 
 // 正常路由跳转
 Handler normalPageHanderl = Handler(

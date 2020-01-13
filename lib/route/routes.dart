@@ -5,9 +5,6 @@ import 'package:flutter_music/route/route_handles.dart';
 
 class Routes {
   static String root = '/'; //启动页
-  static String indexPage = '/indexPage';
-  static String normalPage = '/normalPage';
-  static String routingReference = '/routingReference';
   static String login = '/login'; //登录页面
   static String home = "/home";  //首页
 
@@ -26,13 +23,5 @@ class Routes {
     router.define(root, handler: splashHandler); //启动页
     router.define(login, handler: loginHanderl); //登录
     router.define(home, handler: homeHandler); //首页
-
-
-
-
-
-    router.define(indexPage, handler: indexPageHanderl);
-    router.define(normalPage, handler: normalPageHanderl);
-    router.define(routingReference, handler: routingReferenceHanderl);
   }
 }
