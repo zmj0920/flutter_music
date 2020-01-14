@@ -29,13 +29,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.5"
-  bot_toast:
-    dependency: "direct main"
-    description:
-      name: bot_toast
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.2.1"
   charcode:
     dependency: transitive
     description:

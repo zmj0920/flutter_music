@@ -55,6 +55,7 @@ class NetUtils {
 
   static void _reLogin() {
     Future.delayed(Duration(milliseconds: 200), () {
+      //使用get_it注册popAndPushNamed登录失败跳转路由
       Application.getIt<NavigateService>().popAndPushNamed(Routes.login);
       Utils.showToast('登录失效，请重新登录');
     });

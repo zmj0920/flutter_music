@@ -11,6 +11,7 @@ void main() {
   Router router = Router();
   Routes.configureRoutes(router);
   Application.router = router;
+  //注册函数应用运行时初始化一次
   Application.setupLocator();
 //  AudioPlayer.logEnabled = true;
   Provider.debugCheckInvalidValueType = null;
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
+      //通过容器注入服务，来绑定这个 GlobalKey
       navigatorKey: Application.getIt<NavigateService>().key,
       theme: ThemeData(
           brightness: Brightness.light,
