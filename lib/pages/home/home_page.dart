@@ -25,13 +25,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       // 设置没有高度的 appbar，目的是为了设置状态栏的颜色
-      appBar: PreferredSize(
-        child: AppBar(
-          elevation: 0,
-        ),
-        preferredSize: Size.zero,
-      ),
-      backgroundColor: Colors.yellow,
+      // appBar: PreferredSize(
+      //   child: AppBar(
+      //     elevation: 0,
+      //   ),
+      //   preferredSize: Size.zero,
+      // ),
+      backgroundColor: Colors.white,
       //SafeArea解决不规则屏幕的显示问题
       body: SafeArea(
         bottom: false,
