@@ -6,6 +6,7 @@ import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_music/application.dart';
 import 'package:flutter_music/model/user.dart';
+import 'package:flutter_music/model/swiper_banner.dart';
 import 'package:flutter_music/route/navigate_service.dart';
 import 'package:flutter_music/route/routes.dart';
 import 'package:flutter_music/widgets/loading.dart';
@@ -76,5 +77,11 @@ class NetUtils {
         .catchError((e) {
       Utils.showToast('网络错误！');
     });
+  }
+
+  ///轮播
+  static Future<SwiperBanner> getBannerData(BuildContext context) async {
+    Response response = await _get(context, '/banner', params: {'type': 1});
+    return SwiperBanner.fromJson(response.data);
   }
 }
