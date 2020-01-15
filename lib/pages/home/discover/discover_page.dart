@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_music/model/swiper_banner.dart';
+import 'package:flutter_music/utils/net_utils.dart';
+import 'package:flutter_music/widgets/widget_future_builder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
@@ -8,38 +11,18 @@ class DiscoverPage extends StatefulWidget {
 }
 
 class _DiscoverPageState extends State<DiscoverPage> {
-  List swiperList = [
-    {
-      "id": 1,
-      "imageUrl":
-          'http://p1.music.126.net/xK9XxS6m7ilytVvlgIBzGw==/109951164624752095.jpg?param=750y260',
-    },
-    {
-      "id": 2,
-      "imageUrl":
-          'http://p1.music.126.net/tjQHoq3b-qZ09Jck1iYWcw==/109951164624226015.jpg?param=750y260',
-    },
-    {
-      "id": 3,
-      "imageUrl":
-          'http://p1.music.126.net/TmXOYu2M-kmc6ckFt0-kCg==/109951164623762709.jpg?param=750y260',
-    },
-    {
-      "id": 4,
-      "imageUrl":
-          'http://p1.music.126.net/3tjUHEe1F-jnrNUCoCq1zw==/109951164624414213.jpg?param=750y260',
-    },
-    {
-      "id": 5,
-      "imageUrl":
-          'http://p1.music.126.net/t-MdVrGiHTvZNzBnP5tSKA==/109951164623773287.jpg?param=750y260',
-    },
-    {
-      "id": 6,
-      "imageUrl":
-          'http://p1.music.126.net/Fu7Ybqn92imLRgnguu8Rbg==/109951164623778781.jpg?param=750y260',
-    },
-  ];
+  /// 构建轮播图
+  Widget _buildBanner() {
+    return CustomFutureBuilder<SwiperBanner>(
+      futureFunc: NetUtils.getBannerData,
+      builder: (context, data) {
+        return SwiperBannerDiy(
+            swiperDataList:
+                data.banners.map((e) => '${e.pic}?param=750y260').toList());
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,9 +30,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              SwiperBannerDiy(swiperDataList: this.swiperList),
-            ],
+            children: <Widget>[_buildBanner()],
           ),
         ));
   }
@@ -67,7 +48,7 @@ class SwiperBannerDiy extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             return ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Image.network("${swiperDataList[index]['imageUrl']}",
+                child: Image.network("${swiperDataList[index]}",
                     fit: BoxFit.fill));
           },
           itemWidth: ScreenUtil().setWidth(750),

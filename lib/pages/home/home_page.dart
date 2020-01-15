@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_music/application.dart';
 import 'package:flutter_music/pages/home/discover/discover_page.dart';
 import 'package:flutter_music/pages/home/event/event_page.dart';
 import 'package:flutter_music/pages/home/me/me_page.dart';
 import 'package:flutter_music/pages/home/video/video_page.dart';
-import 'package:flutter_music/widgets/v_empty_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomePage extends StatefulWidget {
