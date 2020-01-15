@@ -10,7 +10,8 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with TickerProviderStateMixin,AutomaticKeepAliveClientMixin {
+class _HomePageState extends State<HomePage>
+    with TickerProviderStateMixin {
   TabController _tabController;
 
   @override
@@ -21,7 +22,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin,Autom
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -38,7 +38,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin,Autom
           ),
         ],
         title: TabBar(
-          labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color: Colors.black87,  fontFamily: "Courier",),
+          labelStyle: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.black87,
+            fontFamily: "Courier",
+          ),
           unselectedLabelStyle: TextStyle(fontSize: 16),
           //未选中时标签的颜色
           indicator: UnderlineTabIndicator(),
@@ -60,7 +65,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin,Autom
           ],
         ),
       ),
-    //  backgroundColor: Colors.red,
+      //  backgroundColor: Colors.red,
       //SafeArea解决不规则屏幕的显示问题
       body: SafeArea(
         child: TabBarView(
@@ -70,9 +75,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin,Autom
       ),
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }
 
 class SearchBarViewDelegate extends SearchDelegate<String> {

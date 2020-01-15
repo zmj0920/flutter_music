@@ -10,7 +10,7 @@ class DiscoverPage extends StatefulWidget {
   _DiscoverPageState createState() => _DiscoverPageState();
 }
 
-class _DiscoverPageState extends State<DiscoverPage> {
+class _DiscoverPageState extends State<DiscoverPage> with TickerProviderStateMixin,  AutomaticKeepAliveClientMixin  {
   /// 构建轮播图
   Widget _buildBanner() {
     return CustomFutureBuilder<SwiperBanner>(
@@ -25,6 +25,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
@@ -34,6 +35,10 @@ class _DiscoverPageState extends State<DiscoverPage> {
           ),
         ));
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }
 
 // 首页轮播组件编写
