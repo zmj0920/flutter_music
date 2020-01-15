@@ -10,7 +10,7 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin,AutomaticKeepAliveClientMixin {
   TabController _tabController;
 
   @override
@@ -21,8 +21,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
-      // 设置没有高度的 appbar，目的是为了设置状态栏的颜色
       backgroundColor: Colors.white,
       appBar: AppBar(
         actions: <Widget>[
@@ -70,6 +70,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 class SearchBarViewDelegate extends SearchDelegate<String> {
