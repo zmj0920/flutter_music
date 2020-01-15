@@ -25,49 +25,87 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       // 设置没有高度的 appbar，目的是为了设置状态栏的颜色
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.search,
-              size: ScreenUtil().setWidth(50),
-              color: Colors.black87,
-            ),
-            onPressed: () {
-              showSearch(context: context, delegate: SearchBarViewDelegate());
-            },
-          ),
-        ],
-        title: TabBar(
-          labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color: Colors.black87,  fontFamily: "Courier",),
-          unselectedLabelStyle: TextStyle(fontSize: 16),
-          //未选中时标签的颜色
-          indicator: UnderlineTabIndicator(),
-          indicatorWeight: 1,
-          controller: _tabController,
-          tabs: [
-            Tab(
-              text: '我的',
-            ),
-            Tab(
-              text: '发现',
-            ),
-            Tab(
-              text: '动态',
-            ),
-            Tab(
-              text: '视频',
-            ),
-          ],
+      appBar: PreferredSize(
+        child: AppBar(
+          elevation: 0,
         ),
+        preferredSize: Size.zero,
       ),
-    //  backgroundColor: Colors.red,
+      backgroundColor: Colors.red,
       //SafeArea解决不规则屏幕的显示问题
       body: SafeArea(
-        child: TabBarView(
-          controller: _tabController,
-          children: [MePage(), DiscoverPage(), EventPage(), VideoPage()],
+        bottom: false,
+        child: Stack(
+          children: <Widget>[
+            Padding(
+               padding: EdgeInsets.only(right: 25,bottom:ScreenUtil().setWidth(80) + Application.bottomBarHeight),
+              child: Column(
+                children: <Widget>[
+                  Stack(
+                    children: <Widget>[
+                      Padding(
+                        //EdgeInsets.symmetric(horizontal: val1, vertical: val2): 用于设置水平/垂直方向上的值
+                        padding: EdgeInsets.symmetric(
+                            horizontal: ScreenUtil().setWidth(80)),
+                        child: TabBar(
+                          labelStyle: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
+                          unselectedLabelStyle: TextStyle(fontSize: 14),
+                          //未选中时标签的颜色
+                          indicator: UnderlineTabIndicator(),
+                           indicatorWeight: 1,
+                          controller: _tabController,
+                          tabs: [
+                            Tab(
+                              text: '我的',
+                            ),
+                            Tab(
+                              text: '发现',
+                            ),
+                            Tab(
+                              text: '动态',
+                            ),
+                            Tab(
+                              text: '视频',
+                            ),
+                          ],
+                        ),
+                      ),
+                      Positioned(
+                        right: ScreenUtil().setWidth(0),
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.search,
+                            size: ScreenUtil().setWidth(50),
+                            color: Colors.black87,
+                          ),
+                          onPressed: () {
+                            showSearch(
+                                context: context,
+                                delegate: SearchBarViewDelegate());
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  VEmptyView(20),
+                  Expanded(
+                    flex: 1,
+                    child: TabBarView(
+                      controller: _tabController,
+                      children: [
+                        MePage(),
+                        DiscoverPage(),
+                        EventPage(),
+                        VideoPage()
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            // PlayWidget(),
+          ],
         ),
       ),
     );
@@ -97,7 +135,6 @@ class SearchBarViewDelegate extends SearchDelegate<String> {
         icon: Icon(Icons.clear),
         onPressed: () {
           query = "";
-
           ///搜索建议的内容
           showSuggestions(context);
         },
@@ -116,9 +153,7 @@ class SearchBarViewDelegate extends SearchDelegate<String> {
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
-      icon: AnimatedIcon(
-          icon: AnimatedIcons.menu_arrow, progress: transitionAnimation),
-
+      icon: AnimatedIcon(icon: AnimatedIcons.menu_arrow, progress: transitionAnimation),
       ///调用 close 关闭 search 界面
       onPressed: () => close(context, null),
     );
@@ -139,17 +174,18 @@ class SearchBarViewDelegate extends SearchDelegate<String> {
 
     ///展示搜索结果
     return ListView.builder(
-        itemCount: result.length,
-        itemBuilder: (BuildContext context, int index) => InkWell(
-              child: ListTile(
-                title: Text(result[index]),
-              ),
-              onTap: () {
-                searchHint = "";
-                query = result[index].toString();
-                showResults(context);
-              },
-            ));
+      itemCount: result.length,
+      itemBuilder: (BuildContext context, int index) =>InkWell(
+        child: ListTile(
+        title: Text(result[index]),
+      ) ,
+       onTap: () {
+          searchHint = "";
+          query = result[index].toString();
+          showResults(context);
+        },
+      )
+    );
   }
 
   @override

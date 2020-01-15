@@ -7,8 +7,11 @@ class MePage extends StatefulWidget {
 class _MePageState extends State<MePage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-       child: Text("MePage"),
+    return Scaffold(
+            backgroundColor: Colors.red,
+            body: Container(
+              child: Text("我的"),
+            ),
     );
   }
 }
