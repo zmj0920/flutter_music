@@ -1,9 +1,15 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_music/application.dart';
+import 'package:flutter_music/model/user.dart';
 import 'package:flutter_music/pages/home/discover/discover_page.dart';
 import 'package:flutter_music/pages/home/event/event_page.dart';
 import 'package:flutter_music/pages/home/me/me_page.dart';
 import 'package:flutter_music/pages/home/video/video_page.dart';
+import 'package:flutter_music/utils/net_utils.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 class HomePage extends StatefulWidget {
   @override
@@ -13,6 +19,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   TabController _tabController;
 
+    User user = User.fromJson(json.decode(Application.sp.getString('user')));
   @override
   void initState() {
     super.initState();
@@ -21,6 +28,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    
+    print("2222");
+    print(user.profile.userId);
+       NetUtils.getUserDetail(context,user.profile.userId);
+
     return Scaffold(
       backgroundColor: Colors.white,
       drawer: Drawer(
@@ -42,9 +54,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         "https://p2.music.126.net/bmA_ablsXpq3Tk9HlEg9sA==/2002210674180203.jpg"),
                     fit: BoxFit.cover,
                   )),
-                  otherAccountsPictures: <Widget>[
-                   
-                  ],
+                  otherAccountsPictures: <Widget>[],
                 ))
               ],
             ),

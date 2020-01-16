@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_music/application.dart';
 import 'package:flutter_music/model/user.dart';
 import 'package:flutter_music/model/swiper_banner.dart';
+import 'package:flutter_music/model/user_detail.dart';
 import 'package:flutter_music/route/navigate_service.dart';
 import 'package:flutter_music/route/routes.dart';
 import 'package:flutter_music/widgets/loading.dart';
@@ -84,4 +85,11 @@ class NetUtils {
     Response response = await _get(context, '/banner', params: {'type': 1});
     return SwiperBanner.fromJson(response.data);
   }
+   
+   //获取用户详情信息
+  static Future<UserDetail> getUserDetail(BuildContext context,int uid) async{
+    Response response = await _get(context, '/user/detail',params: {'uid':uid});
+    return UserDetail.fromJson(response.data);
+  }
+  
 }
