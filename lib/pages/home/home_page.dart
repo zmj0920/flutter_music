@@ -10,8 +10,7 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>
-    with TickerProviderStateMixin {
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   TabController _tabController;
 
   @override
@@ -24,7 +23,57 @@ class _HomePageState extends State<HomePage>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      drawer: Drawer(
+        child: Column(
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                Expanded(
+                    child: UserAccountsDrawerHeader(
+                  accountName: Text("君吟"),
+                  accountEmail: Text("id123456"),
+                  currentAccountPicture: CircleAvatar(
+                    backgroundImage: NetworkImage(
+                        "https://user-gold-cdn.xitu.io/2019/9/4/16cfa3238800341b?imageView2/1/w/180/h/180/q/85/format/webp/interlace/1"),
+                  ),
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                    image: NetworkImage(
+                        "https://p2.music.126.net/bmA_ablsXpq3Tk9HlEg9sA==/2002210674180203.jpg"),
+                    fit: BoxFit.cover,
+                  )),
+                  otherAccountsPictures: <Widget>[
+                   
+                  ],
+                ))
+              ],
+            ),
+            ListTile(
+              leading: CircleAvatar(child: Icon(Icons.home)),
+              title: Text("我的空间"),
+            ),
+            Divider(),
+            ListTile(
+              leading: CircleAvatar(child: Icon(Icons.people)),
+              title: Text("用户中心"),
+              onTap: () {
+                Navigator.of(context).pop(); //隐藏侧边栏
+                Navigator.pushNamed(context, '/user');
+              },
+            ),
+            Divider(),
+            ListTile(
+              leading: CircleAvatar(child: Icon(Icons.settings)),
+              title: Text("设置中心"),
+            ),
+            Divider(),
+          ],
+        ),
+      ),
       appBar: AppBar(
+        // leading: IconButton(
+        //     icon: Icon(Icons.menu, size: ScreenUtil().setWidth(50)),
+        //     onPressed: () => debugPrint('Navigation button is pressed.')),
         actions: <Widget>[
           IconButton(
             icon: Icon(
@@ -39,15 +88,14 @@ class _HomePageState extends State<HomePage>
         ],
         title: TabBar(
           labelStyle: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
             color: Colors.black87,
             fontFamily: "Courier",
           ),
-          unselectedLabelStyle: TextStyle(fontSize: 16),
+          unselectedLabelStyle: TextStyle(fontSize: 14),
           //未选中时标签的颜色
           indicator: UnderlineTabIndicator(),
-          indicatorWeight: 1,
           controller: _tabController,
           tabs: [
             Tab(
@@ -57,7 +105,7 @@ class _HomePageState extends State<HomePage>
               text: '发现',
             ),
             Tab(
-              text: '动态',
+              text: '云村',
             ),
             Tab(
               text: '视频',
