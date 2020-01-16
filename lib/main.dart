@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,6 +11,11 @@ import 'package:flutter_music/route/routes.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  if (Platform.isAndroid) {
+    SystemUiOverlayStyle systemUiOverlayStyle =
+        SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+    SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+  }
   Router router = Router();
   Routes.configureRoutes(router);
   Application.router = router;
@@ -31,7 +38,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: '网易云音乐',
       //通过容器注入服务，来绑定这个 GlobalKey
       navigatorKey: Application.getIt<NavigateService>().key,
       theme: ThemeData(
