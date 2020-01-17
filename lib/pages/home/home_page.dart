@@ -34,8 +34,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget _buildUserDetail() {
     return CustomFutureBuilder<UserDetail>(
         futureFunc: NetUtils.getUserDetail,
-        params: {'uid':_user.profile.userId},
-        builder: (context, data) {
+        params: {'uid': _user.profile.userId},
+        builder: (context, userDetail) {
+          print(userDetail.profile.avatarUrl);
           return Column(
             children: <Widget>[
               Row(
@@ -45,15 +46,21 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     accountName: Text("君吟"),
                     accountEmail: Text("id123456"),
                     currentAccountPicture: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                          "https://user-gold-cdn.xitu.io/2019/9/4/16cfa3238800341b?imageView2/1/w/180/h/180/q/85/format/webp/interlace/1"),
+                      backgroundImage:
+                          NetworkImage(userDetail.profile.avatarUrl),
                     ),
                     decoration: BoxDecoration(
-                        image: DecorationImage(
-                      image: NetworkImage(
-                          "https://p2.music.126.net/bmA_ablsXpq3Tk9HlEg9sA==/2002210674180203.jpg"),
-                      fit: BoxFit.cover,
-                    )),
+                        gradient: LinearGradient(
+                          colors: [Color.fromRGBO(16,141,199, 0.8), Color.fromRGBO(239,142,56, 0.8),],
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                        ),
+                        // image: DecorationImage(
+                        //   image: NetworkImage(
+                        //       "https://p2.music.126.net/bmA_ablsXpq3Tk9HlEg9sA==/2002210674180203.jpg"),
+                        //   fit: BoxFit.cover,
+                        // )
+                        ),
                     otherAccountsPictures: <Widget>[],
                   ))
                 ],
