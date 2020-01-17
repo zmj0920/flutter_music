@@ -3,13 +3,14 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_music/application.dart';
 import 'package:flutter_music/model/user.dart';
+import 'package:flutter_music/model/user_detail.dart';
 import 'package:flutter_music/pages/home/discover/discover_page.dart';
 import 'package:flutter_music/pages/home/event/event_page.dart';
 import 'package:flutter_music/pages/home/me/me_page.dart';
 import 'package:flutter_music/pages/home/video/video_page.dart';
 import 'package:flutter_music/utils/net_utils.dart';
+import 'package:flutter_music/widgets/widget_future_builder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 
 class HomePage extends StatefulWidget {
   @override
@@ -19,71 +20,76 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   TabController _tabController;
 
-    User user = User.fromJson(json.decode(Application.sp.getString('user')));
+  User _user = User.fromJson(json.decode(Application.sp.getString('user')));
+
   @override
   void initState() {
     super.initState();
     _tabController = TabController(vsync: this, length: 4);
+    // WidgetsBinding.instance.addPostFrameCallback((call) {
+    //   _request();
+    // });
+  }
+
+  Widget _buildUserDetail() {
+    return CustomFutureBuilder<UserDetail>(
+        futureFunc: NetUtils.getUserDetail,
+        params: {'uid':_user.profile.userId},
+        builder: (context, data) {
+          return Column(
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  Expanded(
+                      child: UserAccountsDrawerHeader(
+                    accountName: Text("君吟"),
+                    accountEmail: Text("id123456"),
+                    currentAccountPicture: CircleAvatar(
+                      backgroundImage: NetworkImage(
+                          "https://user-gold-cdn.xitu.io/2019/9/4/16cfa3238800341b?imageView2/1/w/180/h/180/q/85/format/webp/interlace/1"),
+                    ),
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                      image: NetworkImage(
+                          "https://p2.music.126.net/bmA_ablsXpq3Tk9HlEg9sA==/2002210674180203.jpg"),
+                      fit: BoxFit.cover,
+                    )),
+                    otherAccountsPictures: <Widget>[],
+                  ))
+                ],
+              ),
+              ListTile(
+                leading: CircleAvatar(child: Icon(Icons.home)),
+                title: Text("我的空间"),
+              ),
+              Divider(),
+              ListTile(
+                leading: CircleAvatar(child: Icon(Icons.people)),
+                title: Text("用户中心"),
+                onTap: () {
+                  Navigator.of(context).pop(); //隐藏侧边栏
+                  Navigator.pushNamed(context, '/user');
+                },
+              ),
+              Divider(),
+              ListTile(
+                leading: CircleAvatar(child: Icon(Icons.settings)),
+                title: Text("设置中心"),
+              ),
+              Divider(),
+            ],
+          );
+        });
   }
 
   @override
   Widget build(BuildContext context) {
-    
-    print("2222");
-    print(user.profile.userId);
-       NetUtils.getUserDetail(context,user.profile.userId);
-
     return Scaffold(
       backgroundColor: Colors.white,
       drawer: Drawer(
-        child: Column(
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                Expanded(
-                    child: UserAccountsDrawerHeader(
-                  accountName: Text("君吟"),
-                  accountEmail: Text("id123456"),
-                  currentAccountPicture: CircleAvatar(
-                    backgroundImage: NetworkImage(
-                        "https://user-gold-cdn.xitu.io/2019/9/4/16cfa3238800341b?imageView2/1/w/180/h/180/q/85/format/webp/interlace/1"),
-                  ),
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                    image: NetworkImage(
-                        "https://p2.music.126.net/bmA_ablsXpq3Tk9HlEg9sA==/2002210674180203.jpg"),
-                    fit: BoxFit.cover,
-                  )),
-                  otherAccountsPictures: <Widget>[],
-                ))
-              ],
-            ),
-            ListTile(
-              leading: CircleAvatar(child: Icon(Icons.home)),
-              title: Text("我的空间"),
-            ),
-            Divider(),
-            ListTile(
-              leading: CircleAvatar(child: Icon(Icons.people)),
-              title: Text("用户中心"),
-              onTap: () {
-                Navigator.of(context).pop(); //隐藏侧边栏
-                Navigator.pushNamed(context, '/user');
-              },
-            ),
-            Divider(),
-            ListTile(
-              leading: CircleAvatar(child: Icon(Icons.settings)),
-              title: Text("设置中心"),
-            ),
-            Divider(),
-          ],
-        ),
+        child: _buildUserDetail(),
       ),
       appBar: AppBar(
-        // leading: IconButton(
-        //     icon: Icon(Icons.menu, size: ScreenUtil().setWidth(50)),
-        //     onPressed: () => debugPrint('Navigation button is pressed.')),
         actions: <Widget>[
           IconButton(
             icon: Icon(

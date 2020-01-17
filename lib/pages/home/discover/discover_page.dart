@@ -139,7 +139,6 @@ class _DiscoverPageState extends State<DiscoverPage>
   }
 
   @override
-  // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 }
 

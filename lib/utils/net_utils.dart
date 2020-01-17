@@ -87,8 +87,10 @@ class NetUtils {
   }
    
    //获取用户详情信息
-  static Future<UserDetail> getUserDetail(BuildContext context,int uid) async{
-    Response response = await _get(context, '/user/detail',params: {'uid':uid});
+  static Future<UserDetail> getUserDetail(BuildContext context, {
+    @required Map<String, dynamic> params,
+  }) async{
+    Response response = await _get(context, '/user/detail', params: params, isShowLoading: false);
     return UserDetail.fromJson(response.data);
   }
   
