@@ -51,9 +51,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     ),
                     decoration: BoxDecoration(
                         gradient: LinearGradient(
-                          colors: [Color.fromRGBO(238,154,229, 0.8), Color.fromRGBO(89,97,249, 1),],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomCenter,
+                          colors: [Color.fromRGBO(195,20,50, 0.8), Color.fromRGBO(36,11,54, 1),],
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
                         ),
                         // image: DecorationImage(
                         //   image: NetworkImage(
