@@ -42,37 +42,83 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               Row(
                 children: <Widget>[
                   Expanded(
-                      child: UserAccountsDrawerHeader(
-                    accountName: Text("君吟"),
-                    accountEmail: Text("id123456"),
-                    currentAccountPicture: CircleAvatar(
-                      backgroundImage:
-                          NetworkImage(userDetail.profile.avatarUrl),
-                    ),
-                    decoration: BoxDecoration(
+                    child: DrawerHeader(
+                      padding: EdgeInsets.zero,
+                      decoration: BoxDecoration(
                         gradient: LinearGradient(
-                          colors: [Color.fromRGBO(195,20,50, 0.8), Color.fromRGBO(36,11,54, 1),],
+                          colors: [
+                            Color.fromRGBO(195, 20, 50, 0.8),
+                            Color.fromRGBO(36, 11, 54, 1),
+                          ],
                           begin: Alignment.centerLeft,
                           end: Alignment.centerRight,
                         ),
-                        // image: DecorationImage(
-                        //   image: NetworkImage(
-                        //       "https://p2.music.126.net/bmA_ablsXpq3Tk9HlEg9sA==/2002210674180203.jpg"),
-                        //   fit: BoxFit.cover,
-                        // )
+                      ),
+                      child:  Stack(children: <Widget>[
+                        /* 用stack来放背景图片 */
+                        // new Image.network(
+                        //   userDetail.profile.avatarUrl,
+                        //   fit: BoxFit.fill,
+                        //   width: double.infinity,
+                        // ),
+                        new Align(
+                          /* 先放置对齐 */
+                          alignment: FractionalOffset.bottomLeft,
+                          child: Container(
+                            height: ScreenUtil().setHeight(180.0),
+                            margin: EdgeInsets.only(left: ScreenUtil().setWidth(20.0), bottom: ScreenUtil().setHeight(12.0)),
+                            child:  Row(
+                              mainAxisSize: MainAxisSize.min,
+                              /* 宽度只用包住子组件即可 */
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                 CircleAvatar(
+                                  backgroundImage:
+                                      NetworkImage(userDetail.profile.avatarUrl),
+                                  radius: 35.0,
+                                ),
+                                 Container(
+                                  margin: EdgeInsets.only(left: ScreenUtil().setWidth(15.0)),
+                                  child:  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start, // 水平方向左对齐
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.center, // 竖直方向居中
+                                    children: <Widget>[
+                                       Text(
+                                        userDetail.profile.nickname,
+                                        style:  TextStyle(
+                                            fontSize: 20.0,
+                                            fontWeight: FontWeight.w400,
+                                            color: Colors.white),
+                                      ),
+                                      // new Text(
+                                      //   "What's up",
+                                      //   style: new TextStyle(
+                                      //       fontSize: 14.0,
+                                      //       color: Colors.white),
+                                      // ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
-                    otherAccountsPictures: <Widget>[],
-                  ))
+                      ]),
+                    ),
+                  )
                 ],
               ),
               ListTile(
                 leading: CircleAvatar(child: Icon(Icons.home)),
-                title: Text("我的空间"),
+                title: Text("创作中心"),
               ),
               Divider(),
               ListTile(
                 leading: CircleAvatar(child: Icon(Icons.people)),
-                title: Text("用户中心"),
+                title: Text("听歌识曲"),
                 onTap: () {
                   Navigator.of(context).pop(); //隐藏侧边栏
                   Navigator.pushNamed(context, '/user');
@@ -81,7 +127,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               Divider(),
               ListTile(
                 leading: CircleAvatar(child: Icon(Icons.settings)),
-                title: Text("设置中心"),
+                title: Text("定时播放"),
               ),
               Divider(),
             ],
